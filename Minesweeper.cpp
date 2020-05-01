@@ -12,7 +12,7 @@ Minesweeper::Minesweeper(int columns_get, int rows_get, int bomb_count_get):
 
 Minesweeper::~Minesweeper()
 {
-   
+    //destructor
 }
 
 void Minesweeper::create_table(){
