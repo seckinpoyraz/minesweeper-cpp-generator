@@ -3,6 +3,7 @@
 Minesweeper::Minesweeper(int columns_get, int rows_get, int bomb_count_get):
     rows{rows_get}, columns{columns_get}, max_size{rows*columns}, bomb_count{bomb_count_get}
 {
+    //initialize the variables then run the functions below in order
     create_table(); // create table;
     add_bombs(); // add bombs;
     add_numbers(); // add numbers;
@@ -15,25 +16,38 @@ Minesweeper::~Minesweeper()
 }
 
 void Minesweeper::create_table(){
-    table.resize(rows,vector<int>(columns, 0)); // we resized the table
+    table.resize(rows,vector<int>(columns, 0)); // resize the table by the given values of "row" and "column"
 }
 
 void Minesweeper::add_bombs(){
         
+    // Assume rows=20 columns=10
+    // so max_size=rows*columns
+    // max_size=200 in this case
+    // create a vector of integers called 'bombs' [1,2,3,4,5....,199,200]
     for(int i{1}; i<=max_size; ++i){
-        bombs.push_back(i);
+        bombs.push_back(i); 
     }
     
+    // feed the shuffle function by the system clock
     unsigned seed = chrono::system_clock::now().time_since_epoch().count();
 
+    // because we want random bombs, we need to shuffle
+    // shuffle bombs vector [1,2,3,4,5....,199,200]
+    // e.g. output [20,32,50,120,153,.....1,12]
     shuffle(bombs.begin(), bombs.end(), default_random_engine(seed));
     
+    // user asks 3 bombs to be generated for example
+    // bomb_count=3
+    // then the expected output of bombs: [20,32,50]
+    // now we have 3 bombs at the 20th, 32nd and 50th squares
     bombs.reserve(bomb_count);
-    bombs.resize(bomb_count); // ilk bomba sayısı kadarki kareyi al
+    bombs.resize(bomb_count);
     
 }
 
 int Minesweeper::find_column(int a){
+    //calculate the column by the given square number
     int column_of_it{0};
     if(a%columns==0){
         column_of_it = columns;
@@ -44,6 +58,8 @@ int Minesweeper::find_column(int a){
 }
 
 int Minesweeper::find_row(int a, int column){
+    //calculate the row by the given square number and the column
+    //we have to find_column in order to find_row
     int row_of_it { ((a-column)/columns)+1 };
     return row_of_it;
 }
@@ -57,33 +73,47 @@ void Minesweeper::add_numbers(){
     
     for(auto bomb: bombs){
         //for each of the bombs
-        column_of_the_bomba = find_column(bomb);
-        row_of_the_bomba = find_row(bomb, column_of_the_bomba);
+        column_of_the_bomba = find_column(bomb); //find the column of the bomb
+        row_of_the_bomba = find_row(bomb, column_of_the_bomba); //find the row of the bomb
         column_of_the_bomb = column_of_the_bomba-1; //for array starting at 0
         row_of_the_bomb = row_of_the_bomba-1; //for array starting at 0
         
+        //add the numbers around each bomb
+        //if statements are checking for the edges of the table
+        // the areas around one bomb looks like this:
+        //   1 2 3
+        //   4 * 5 
+        //   6 7 8
         
+        //for area "1"
         if(row_of_the_bomb != 0 && column_of_the_bomb != 0)
             table[row_of_the_bomb-1][column_of_the_bomb-1] += 1;
         
+        //for area "2"
         if(row_of_the_bomb != 0)
             table[row_of_the_bomb-1][column_of_the_bomb] += 1;
         
+        //for area "3"
         if(row_of_the_bomb != 0 && column_of_the_bomb != columns-1)
             table[row_of_the_bomb-1][column_of_the_bomb+1] += 1;
         
+        //for area "4"
         if(column_of_the_bomb != 0)
             table[row_of_the_bomb][column_of_the_bomb-1] += 1;
         
+        //for area "5"
         if(column_of_the_bomb != columns-1)
             table[row_of_the_bomb][column_of_the_bomb+1] += 1;
             
+        //for area "6"
         if(row_of_the_bomb != rows-1 && column_of_the_bomb != 0)
             table[row_of_the_bomb+1][column_of_the_bomb-1] += 1;
         
+        //for area "7"
         if(row_of_the_bomb != rows-1)
             table[row_of_the_bomb+1][column_of_the_bomb] += 1;
         
+        //for area "8"
         if(row_of_the_bomb != rows-1 && column_of_the_bomb != columns-1)
             table[row_of_the_bomb+1][column_of_the_bomb+1] += 1;
         
@@ -93,19 +123,24 @@ void Minesweeper::add_numbers(){
 }
 
 void Minesweeper::show_table(){
+    //print the 2D vector table
     for (int r = 1; r <= rows; r++) {
         for (int c = 1; c <= columns; c++){
             if( find(bombs.begin(), bombs.end(), ((r-1)*columns)+c ) != bombs.end() ){
+                //if the square is bomb, print *
                 cout << "*" << " "; 
             }else if(table[r-1][c-1] == 0){
+                //if the square is empty, print white space
                 cout << "  ";
             }else{
+                //if the square is number, print number
                 cout << table[r-1][c-1] << " ";
             }
         }
         cout << endl; 
     }
     
+    //print the bomb locations
     cout << endl << "[ ";
     for(auto a:bombs)
         cout << a << ", ";
