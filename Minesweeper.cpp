@@ -12,7 +12,7 @@ Minesweeper::Minesweeper(int columns_get, int rows_get, int bomb_count_get):
 
 Minesweeper::~Minesweeper()
 {
-    //destructor
+   
 }
 
 void Minesweeper::create_table(){
@@ -66,17 +66,17 @@ int Minesweeper::find_row(int a, int column){
 
 void Minesweeper::add_numbers(){
     // add numbers
-    int column_of_the_bomba{};
-    int row_of_the_bomba{};
+    int column_of_the_bomb_real{};
+    int row_of_the_bomb_real{};
     int column_of_the_bomb{}; //for array starting at 0
     int row_of_the_bomb{}; //for array starting at 0
     
     for(auto bomb: bombs){
         //for each of the bombs
-        column_of_the_bomba = find_column(bomb); //find the column of the bomb
-        row_of_the_bomba = find_row(bomb, column_of_the_bomba); //find the row of the bomb
-        column_of_the_bomb = column_of_the_bomba-1; //for array starting at 0
-        row_of_the_bomb = row_of_the_bomba-1; //for array starting at 0
+        column_of_the_bomb_real = find_column(bomb); //find the column of the bomb
+        row_of_the_bomb_real = find_row(bomb, column_of_the_bomb_real); //find the row of the bomb
+        column_of_the_bomb = column_of_the_bomb_real-1; //for array starting at 0
+        row_of_the_bomb = row_of_the_bomb_real-1; //for array starting at 0
         
         //add the numbers around each bomb
         //if statements are checking for the edges of the table
@@ -152,4 +152,3 @@ void Minesweeper::show_table(){
     cout << "]" <<endl;
     
 }
-
