@@ -15,9 +15,8 @@ private:
     int columns;
     int max_size;
     int bomb_count;
-    vector<vector<int>> table;
-    vector<int> bombs;
-    vector<int> numbers;
+    vector<vector<int>> table; //main table of the game
+    vector<int> bombs; //the vector that contains bombs' locations
     
     int find_column(int);
     int find_row(int,int);
