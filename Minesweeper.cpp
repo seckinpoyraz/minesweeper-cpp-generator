@@ -149,6 +149,6 @@ void Minesweeper::show_table(){
     cout << endl << "[ ";
     for(auto a:bombs)
         cout << a << ", ";
-    cout << "]" <<endl;
+    cout << "]" << endl;
     
 }
