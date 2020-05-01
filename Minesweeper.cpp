@@ -124,9 +124,13 @@ void Minesweeper::add_numbers(){
 
 void Minesweeper::show_table(){
     //print the 2D vector table
+    
+    int square_of_the_bomb{0};
+    
     for (int r = 1; r <= rows; r++) {
         for (int c = 1; c <= columns; c++){
-            if( find(bombs.begin(), bombs.end(), ((r-1)*columns)+c ) != bombs.end() ){
+            square_of_the_bomb = ((r-1)*columns)+c; // find the square of the bomb formula (by given row and column)
+            if( find(bombs.begin(), bombs.end(), square_of_the_bomb) != bombs.end() ){
                 //if the square is bomb, print *
                 cout << "*" << " "; 
             }else if(table[r-1][c-1] == 0){
@@ -136,6 +140,7 @@ void Minesweeper::show_table(){
                 //if the square is number, print number
                 cout << table[r-1][c-1] << " ";
             }
+            
         }
         cout << endl; 
     }
