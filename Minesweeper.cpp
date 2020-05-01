@@ -78,9 +78,9 @@ void Minesweeper::add_numbers(){
         column_of_the_bomb = column_of_the_bomb_real-1; //for array starting at 0
         row_of_the_bomb = row_of_the_bomb_real-1; //for array starting at 0
         
-        //add the numbers around each bomb
-        //if statements are checking for the edges of the table
-        // the areas around one bomb looks like this:
+        // add the numbers around each bomb
+        // if statements are checking for the edges of the table
+        // the areas around one bomb look like this:
         //   1 2 3
         //   4 * 5 
         //   6 7 8
