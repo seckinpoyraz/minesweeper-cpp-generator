@@ -86,35 +86,35 @@ void Minesweeper::add_numbers(){
         //   6 7 8
         
         //for area "1"
-        if(row_of_the_bomb != 0 && column_of_the_bomb != 0)
+        if(row_of_the_bomb != 0 && column_of_the_bomb != 0) //check for edge
             table[row_of_the_bomb-1][column_of_the_bomb-1] += 1;
         
         //for area "2"
-        if(row_of_the_bomb != 0)
+        if(row_of_the_bomb != 0) //check for edge
             table[row_of_the_bomb-1][column_of_the_bomb] += 1;
         
         //for area "3"
-        if(row_of_the_bomb != 0 && column_of_the_bomb != columns-1)
+        if(row_of_the_bomb != 0 && column_of_the_bomb != columns-1) //check for edge
             table[row_of_the_bomb-1][column_of_the_bomb+1] += 1;
         
         //for area "4"
-        if(column_of_the_bomb != 0)
+        if(column_of_the_bomb != 0) //check for edge
             table[row_of_the_bomb][column_of_the_bomb-1] += 1;
         
         //for area "5"
-        if(column_of_the_bomb != columns-1)
+        if(column_of_the_bomb != columns-1) //check for edge
             table[row_of_the_bomb][column_of_the_bomb+1] += 1;
             
         //for area "6"
-        if(row_of_the_bomb != rows-1 && column_of_the_bomb != 0)
+        if(row_of_the_bomb != rows-1 && column_of_the_bomb != 0) //check for edge
             table[row_of_the_bomb+1][column_of_the_bomb-1] += 1;
         
         //for area "7"
-        if(row_of_the_bomb != rows-1)
+        if(row_of_the_bomb != rows-1) //check for edge
             table[row_of_the_bomb+1][column_of_the_bomb] += 1;
         
         //for area "8"
-        if(row_of_the_bomb != rows-1 && column_of_the_bomb != columns-1)
+        if(row_of_the_bomb != rows-1 && column_of_the_bomb != columns-1) //check for edge
             table[row_of_the_bomb+1][column_of_the_bomb+1] += 1;
         
     }
